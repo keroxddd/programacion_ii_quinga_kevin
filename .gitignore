@@ -1,0 +1,57 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Entornos virtuales
+.venv/
+venv/
+env/
+ENV/
+
+# Django
+*.log
+db.sqlite3
+db.sqlite3-journal
+media/
+staticfiles/
+
+# Variables de entorno
+.env
+.env.*
+
+# Django migrations
+# Si quieres conservar las migraciones, NO ignores esta carpeta.
+# */migrations/*
+# */migrations/*.py
+# !*/migrations/__init__.py
+
+# Odoo
+*.pyc
+.odoo/
+*.log
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Sistema operativo
+.DS_Store
+Thumbs.db
+
+# Cobertura y testing
+.coverage
+htmlcov/
+.pytest_cache/
+
+# Distribución
+build/
+dist/
+*.egg-info/
+
+# Archivos temporales
+*.tmp
+*.temp
+*.bak
