@@ -54,4 +54,4 @@ dist/
 # Archivos temporales
 *.tmp
 *.temp
-*.bak
+*.bak.venv/
