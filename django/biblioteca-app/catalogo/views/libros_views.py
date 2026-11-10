@@ -1,0 +1,44 @@
+from django.contrib import messages
+from django.shortcuts import get_object_or_404, redirect, render
+
+from catalogo.forms.libro_form import LibroForm
+from catalogo.models import Libro
+
+
+def libro_list(request):
+    libros = Libro.objects.select_related('categoria').all()
+    return render(request, 'libros/libro_list.html', {'libros': libros})
+
+
+def create_libro(request):
+    if request.method == 'POST':
+        form = LibroForm(request.POST)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Libro creado exitosamente.')
+            return redirect('libro_list')
+    else:
+        form = LibroForm()
+    return render(request, 'libros/formulario.html', {'form': form})
+
+
+def update_libro(request, pk):
+    libro = get_object_or_404(Libro, pk=pk)
+    if request.method == 'POST':
+        form = LibroForm(request.POST, instance=libro)
+        if form.is_valid():
+            form.save()
+            messages.success(request, 'Libro actualizado exitosamente.')
+            return redirect('libro_list')
+    else:
+        form = LibroForm(instance=libro)
+    return render(request, 'libros/formulario.html', {'form': form})
+
+
+def delete_libro(request, pk):
+    libro = get_object_or_404(Libro, pk=pk)
+    if request.method == 'POST':
+        libro.delete()
+        messages.success(request, 'Libro eliminado exitosamente.')
+        return redirect('libro_list')
+    return render(request, 'libros/confirm_delete.html', {'libro': libro})
