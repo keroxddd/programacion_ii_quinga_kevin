@@ -38,6 +38,14 @@
             margin: 8px 0 0 0;
             color: #666;
         }
+        .boton-inicio {
+            display: inline-block;
+            padding: 8px 12px;
+            border-radius: 4px;
+            background-color: #333;
+            color: #fff;
+            text-decoration: none;
+        }
     </style>
 </head>
 <body>
@@ -45,7 +53,8 @@
         <h1>Biblioteca</h1>
         <h2>Categorías</h2>
         <nav>
-            <a href="{% url 'home' %}">Inicio</a> |
+            <a class="boton-inicio" href="{% url 'home' %}">← Volver al inicio</a>
+            |
             <a href="{% url 'libro_list' %}">Catálogo de libros</a>
         </nav>
 
