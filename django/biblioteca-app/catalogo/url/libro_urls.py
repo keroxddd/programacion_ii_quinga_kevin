@@ -1,15 +1,13 @@
 from django.urls import path
+from ..views import libro_views
+from catalogo.views import create_libro, libro_list, delete_libro, update_libro
 
-from catalogo.views.libros_views import (
-    create_libro,
-    delete_libro,
-    libro_list,
-    update_libro,
-)
+from catalogo.views import libro_views
+
 
 urlpatterns = [
-    path('libros/', libro_list, name='libro_list'),
-    path('libros/crear/', create_libro, name='create_libro'),
-    path('libros/editar/<int:pk>/', update_libro, name='update_libro'),
-    path('libros/eliminar/<int:pk>/', delete_libro, name='delete_libro'),
-]
+    path('', libro_views.libro_list, name='libro_list'),
+    path('crear/', libro_views.create_libro, name='libro_create'),
+    path('<int:pk>/editar/', libro_views.update_libro, name='libro_update'),
+    path('<int:pk>/eliminar/', libro_views.delete_libro, name='libro_delete'),
+]   
