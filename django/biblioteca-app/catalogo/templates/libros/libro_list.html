@@ -3,22 +3,31 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lista De Libros</title>
+    <title>Lista de Libros</title>
+    <style>
+        .boton-inicio {
+            display: inline-block;
+            padding: 8px 12px;
+            border-radius: 4px;
+            background-color: #333;
+            color: #fff;
+            text-decoration: none;
+        }
+    </style>
 </head>
 <body>
-    <h1>Lista De Libros</h1>
-    {% if message %}
-    <ul>
-        {%for message in messages%}
-            <li>{{ message }}</li>
-        {% endfor %}
-    </ul>
-    {% endif %}
-        <button>
-            <a href="{% url 'categoria_list' %}">
-                Ver lista de categorías
-            </a>
-        </button>   
+    <nav>
+        <a class="boton-inicio" href="{% url 'home' %}">← Volver al inicio</a> |
+        <a href="{% url 'categoria_list' %}">Catálogo de categorías</a>
+    </nav>
+    <h1>Lista de Libros</h1>
+    {% if messages %}
+        <ul>
+            {% for message in messages %}
+                <li>{{ message }}</li>
+            {% endfor %}
+        </ul>
+    {% endif %}  
     <button>
         <a href="{% url 'libro_create' %}">Crear Nuevo Libro</a>
     </button>
