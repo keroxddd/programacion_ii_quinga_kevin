@@ -1,34 +1,67 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lista de Libros</title>
+    <title>Lista De Libros</title>
 </head>
 <body>
-    <nav>
-        <a href="{% url 'home' %}">Inicio</a> |
-        <a href="{% url 'categoria_list' %}">Catálogo de categorías</a>
-    </nav>
-    <h1>Lista de Libros</h1>
-    {% if messages %}
-        <ul>
-            {% for message in messages %}
-                <li>{{ message }}</li>
-            {% endfor %}
-        </ul>
-    {% endif %}  
+    <h1>Lista De Libros</h1>
+    {% if message %}
+    <ul>
+        {%for message in messages%}
+            <li>{{ message }}</li>
+        {% endfor %}
+    </ul>
+    {% endif %}
+        <button>
+            <a href="{% url 'categoria_list' %}">
+                Ver lista de categorías
+            </a>
+        </button>   
     <button>
-        <a href="{% url 'create_libro' %}">
-            Crear Nuevo Libro</a>
+        <a href="{% url 'libro_create' %}">Crear Nuevo Libro</a>
     </button>
-    <table border="1"> 
+        <button>
+            <a href="{% url 'home' %}">
+                Volver al inicio
+            </a>
+    </button> 
+        <h2>Lista de Libros</h2>
+        <form method="GET">
+            <p>
+                <label for = "pista">
+                    Buscar por titulo, autor o categoría:
+                </label>
+                <input
+                    type="text"
+                    name="pista"
+                    id="pista"
+                    value="{{ request.GET.pista }}">
+            </p>
+            <p>
+                <label for="categoria">
+                    Categoria
+                </label>
+                <select name="categoria" id="categoria">
+                    <option value="">Todas las Categorias</option>
+                    {% for categoria in categorias %}
+                        <option value="{{ categoria.id }}" 
+                            {% if categoria_id == categoria.id|stringformat:"s" %}
+                                selected
+                            {% endif %}>
+                            {{ categoria.nombre }}
+                        </option>
+                    {% endfor %}
+                </select>
+            </p>
+        </form>
+    <table border="1">
         <thead>
             <tr>
-                <th>Título</th>
+                <th>Titulo</th>
                 <th>Autor</th>
                 <th>Fecha de Publicación</th>
-                <th>Categoría</th>
                 <th>Acciones</th>
             </tr>
         </thead>
@@ -37,22 +70,23 @@
             <tr>
                 <td>{{ libro.titulo }}</td>
                 <td>{{ libro.autor }}</td>
-                <td>{{ libro.fecha_publicacion }}</td>
-                <td>{{ libro.categoria.nombre }}</td>
+                <td>{{ libro.fecha_publicacion}}</td>
                 <td>
-                    <a href="{% url 'update_libro' libro.pk %}">Editar</a>
-                    <a href="{% url 'delete_libro' libro.pk %}">Eliminar</a>
+                    <a href="{% url 'libro_update' libro.pk %}">Editar</a>
+                    {% if perms.catalogo.delete_libro %}
+                        <a href="{% url 'libro_delete' libro.pk %}">Eliminar</a>
+                    {% endif %}
                 </td>
             </tr>
             {% empty %}
             <tr>
-                <td colspan="5">No hay libros disponibles.</td>
+                <td colspan="3">No hay libros disponibles.</td>
             </tr>
             {% endfor %}
         </tbody>
         <tfoot>
             <tr>
-                <td colspan="5">Total de libros: {{ libros|length }}</td>
+                <td colspan="3"> Total de Libros: {{libros|length}}</td>
             </tr>
         </tfoot>
     </table>
