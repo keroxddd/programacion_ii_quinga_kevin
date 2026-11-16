@@ -1,7 +1,9 @@
+from datetime import timezone
 from django import forms
 from catalogo.models import Autor
+from django.core.exceptions import ValidationError
 
-class Autorform(forms.ModelForm):
+class AutorForm(forms.ModelForm):
     class Meta:
         model = Autor
         fields = ['nombre',

@@ -1,19 +1,16 @@
-
 from django.contrib import admin
 from django.urls import include, path
-from django.views.generic.base import RedirectView
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('cuentas/', include('catalogo.url.authentication_urls')),
-    path('', include('catalogo.url.home_urls')),
-    path(
-        'catalogo/',
-        RedirectView.as_view(pattern_name='home', permanent=False),
-        name='catalogo',
-    ),
+    path('login/',
+         include('catalogo.urls.authentication_urls')),
     path('catalogo/',
-         include('catalogo.url.categoria_urls')),
+         include('catalogo.urls.categoria_urls')),
+     path('catalogo/',
+              include('catalogo.urls.libro_urls')),
     path('catalogo/',
-         include('catalogo.url.libro_urls')),
+         include('catalogo.urls.autor_urls')),
+     path('', include('catalogo.urls.home_urls')),
+     
 ]

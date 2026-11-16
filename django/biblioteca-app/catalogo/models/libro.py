@@ -7,6 +7,11 @@ class Libro(models.Model):
     fecha_publicacion = models.DateField()    
     categoria = models.ForeignKey(Categoria, on_delete=models.PROTECT)
     isbn = models.CharField(max_length=100)
+    autores = models.ManyToManyField('Autor',
+                                     related_name='libros',
+                                     blank=True
+                                     )
+
 
     def __str__(self):
         return self.titulo
